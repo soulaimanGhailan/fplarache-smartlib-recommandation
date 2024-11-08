@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: recommendation-service-dep
+  name: recommendation-service-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: recommendation-service-pod
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: recommendation-service-pod
+    spec:
+      containers:
+        - image: soulaimandockerhub/fplarache-smartlib-recommandation:v1.11
+          name: recommendation-service-container
+          ports:
+            - containerPort: 8080
+            - containerPort: 9999
+
+          readinessProbe:
+            initialDelaySeconds: 15
+            httpGet:
+              port: 8080
+              path: "/actuator/health"
+            periodSeconds: 5
+          livenessProbe:
+            initialDelaySeconds: 15
+            httpGet:
+              port: 8080
+              path: "/actuator/health"
+            periodSeconds: 5
+          env:
+            - name: SERVER_PORT
+              value: "8080"
+            - name: GRPC_SERVER_PORT
+              value: "9999"
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: recommendation-grpc-svc
+  name: recommendation-grpc-svc
+spec:
+  ports:
+    - port: 9999
+      protocol: TCP
+      targetPort: 9999
+      nodePort: 30010
+  selector:
+    app: recommendation-service-pod
+  type: NodePort
+
+---
+
+  apiVersion: v1
+  kind: Service
+  metadata:
+    labels:
+      app: recommendation-http-svc
+    name: recommendation-http-svc
+  spec:
+    ports:
+      - port: 8080
+        protocol: TCP
+        targetPort: 8080
+        nodePort: 30020
+    selector:
+      app: recommendation-service-pod
+    type: NodePort
+
+
