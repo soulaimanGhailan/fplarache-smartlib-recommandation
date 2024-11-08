@@ -1,0 +1,42 @@
+syntax = "proto3";
+option java_package="fpl.smartlib.recommandationgrpcservice.grpc.stub";
+
+message Recommendation {
+  int64 id = 1;
+  int64 userId = 2;
+  int64 createdAT = 3;
+  repeated Book books = 4;
+}
+
+message Book {
+  int64 book_id = 1;
+  string title = 2;
+  string author = 3;
+  string publisher = 4;
+  string isbn = 5;
+}
+
+service RecommendationService {
+  rpc GetRecommendationsForUser (GetRecommendationsRequest) returns (GetRecommendationsResponse);
+  rpc CreateOrUpdateRecommendation (CreateOrUpdateRecommendationRequest) returns (CreateOrUpdateRecommendationResponse);
+}
+
+message GetRecommendationsRequest {
+  int64 userId = 1;
+}
+
+message GetRecommendationsResponse {
+  Recommendation recommendation = 1;
+}
+
+message CreateOrUpdateRecommendationRequest {
+  int64 userId = 1;
+  repeated Book books = 2;
+}
+
+message CreateOrUpdateRecommendationResponse {
+  Recommendation recommendation = 1;
+}
+
+
+
