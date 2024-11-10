@@ -23,15 +23,12 @@ jobs:
         env:
           DOCKER_TOKEN: dckr_pat_iqXb_AijlG18dGAz1_dG2ztXw9w
 
-      - name: Create Dockerfile and build Docker image
+      - name: Build Docker image
         run: |
-          # Create the Dockerfile in the correct directory
-          echo -e "FROM openjdk:17\nVOLUME /tmp\nCOPY target/*.jar app.jar\nENTRYPOINT [\"java\",\"-jar\",\"/app.jar\"]" > fplarache-smartlib-recommendation/recommandation-grpc-service/Dockerfile
-          
-          # Navigate to the correct directory where the Dockerfile is located
+          # Ensure the Dockerfile is in the correct location
           cd fplarache-smartlib-recommendation/recommandation-grpc-service
           
-          # Build Docker image
+          # Run Docker build from the correct directory where the Dockerfile is located
           docker build -t ismail039/your-image-name:${GITHUB_REF_NAME} .
           
           # Tag the image
