@@ -24,7 +24,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ismail039/your-image-name:${GITHUB_REF_NAME} -f recommandation-grpc-service/Dockerfile .
+          docker build -t ismail039/your-image-name:${GITHUB_REF_NAME} -f fplarache-smartlib-recommendation/recommandation-grpc-service/src/Dockerfile .
           docker tag ismail039/your-image-name:${GITHUB_REF_NAME} ismail039/your-image-name:latest
 
       - name: Push Docker image to Docker Hub
