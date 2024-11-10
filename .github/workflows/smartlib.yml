@@ -22,7 +22,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ismail039/your-image-name:${GITHUB_REF_NAME} .
+          docker build -t ismail039/your-image-name:${GITHUB_REF_NAME} -f fplarache-smartlib-recommandation-main/fplarache-smartlib-recommandation-main/recommandation-grpc-service/Dockerfile .
           docker tag ismail039/your-image-name:${GITHUB_REF_NAME} ismail039/your-image-name:latest
 
       - name: Push Docker image to Docker Hub
@@ -60,4 +60,3 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f deployment.yaml
-
