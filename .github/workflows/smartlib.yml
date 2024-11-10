@@ -25,12 +25,12 @@ jobs:
 
       - name: Build Docker image
         run: |
-          # Ensure the Dockerfile is in the correct location
+          # Change directory to where the Dockerfile is located
           cd fplarache-smartlib-recommendation/recommandation-grpc-service
-          
-          # Run Docker build from the correct directory where the Dockerfile is located
-          docker build -t ismail039/your-image-name:${GITHUB_REF_NAME} .
-          
+
+          # Build the Docker image from the correct directory
+          docker build -f Dockerfile -t ismail039/your-image-name:${GITHUB_REF_NAME} .
+
           # Tag the image
           docker tag ismail039/your-image-name:${GITHUB_REF_NAME} ismail039/your-image-name:latest
 
