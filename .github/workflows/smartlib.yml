@@ -2,8 +2,8 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches:
-      - main  # You can change this to the branch you want to trigger the workflow on
+    tags:
+      - 'v*'  # This will trigger the workflow for any tag that starts with 'v' (e.g., v1.0, v2.1.1, etc.)
 
 jobs:
   build:
