@@ -25,8 +25,11 @@ jobs:
 
       - name: Create Dockerfile and build Docker image
         run: |
-          # Create a Dockerfile dynamically
-          echo -e "FROM openjdk:17\nVOLUME /tmp\nCOPY target/*.jar app.jar\nENTRYPOINT [\"java\",\"-jar\",\"/app.jar\"]" > Dockerfile
+          # Create the Dockerfile in the correct directory
+          echo -e "FROM openjdk:17\nVOLUME /tmp\nCOPY target/*.jar app.jar\nENTRYPOINT [\"java\",\"-jar\",\"/app.jar\"]" > fplarache-smartlib-recommendation/recommandation-grpc-service/Dockerfile
+          
+          # Navigate to the correct directory where the Dockerfile is located
+          cd fplarache-smartlib-recommendation/recommandation-grpc-service
           
           # Build Docker image
           docker build -t ismail039/your-image-name:${GITHUB_REF_NAME} .
