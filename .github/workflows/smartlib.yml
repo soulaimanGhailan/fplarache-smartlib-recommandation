@@ -1,1 +1,62 @@
 
+name: Deploy on Tag
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger on tags starting with "v" (e.g., v1.0, v1.1)
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub using token
+        run: |
+          echo "$DOCKER_TOKEN" | docker login -u ismail039 --password-stdin
+        env:
+          DOCKER_TOKEN: dckr_pat_iqXb_AijlG18dGAz1_dG2ztXw9w
+
+      - name: Build Docker image
+        run: |
+          docker build -t ismail039/your-image-name:${GITHUB_REF_NAME} .
+          docker tag ismail039/your-image-name:${GITHUB_REF_NAME} ismail039/your-image-name:latest
+
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push ismail039/your-image-name:${GITHUB_REF_NAME}
+          docker push ismail039/your-image-name:latest
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-north-1
+
+      - name: Log in to Amazon ECR
+        run: |
+          aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 774305596814.dkr.ecr.eu-north-1.amazonaws.com
+
+      - name: Tag Docker image for ECR
+        run: |
+          docker tag ismail039/your-image-name:${GITHUB_REF_NAME} 774305596814.dkr.ecr.eu-north-1.amazonaws.com/dev-fpl-larache-smart-lib-service-recommendation-repo:${GITHUB_REF_NAME}
+          docker tag ismail039/your-image-name:latest 774305596814.dkr.ecr.eu-north-1.amazonaws.com/dev-fpl-larache-smart-lib-service-recommendation-repo:latest
+
+      - name: Push Docker image to Amazon ECR
+        run: |
+          docker push 774305596814.dkr.ecr.eu-north-1.amazonaws.com/dev-fpl-larache-smart-lib-service-recommendation-repo:${GITHUB_REF_NAME}
+          docker push 774305596814.dkr.ecr.eu-north-1.amazonaws.com/dev-fpl-larache-smart-lib-service-recommendation-repo:latest
+
+      - name: Set up Kubeconfig
+        run: |
+          echo "${{ secrets.KUBECONFIG_FILE }}" | base64 -d > $HOME/.kube/config
+        env:
+          KUBECONFIG_FILE: ${{ secrets.KUBECONFIG_FILE }}
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f deployment.yaml
