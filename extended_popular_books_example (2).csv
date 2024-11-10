@@ -1,0 +1,21 @@
+id,titre,auteur,genre,datePublication,description,isbn
+21,To Kill a Mockingbird,Harper Lee,Philosophical,1962-07-11,A story of racial injustice in the American South.,9780060935467
+22,1984,George Orwell,Fiction,1953-06-08,A totalitarian regime that uses surveillance and propaganda to control the populace.,9780451524935
+23,Pride and Prejudice,Jane Austen,Fantasy,1818-01-28,A romantic novel about the manners and matrimonial machinations among the British gentry.,9780141439518
+24,The Great Gatsby,F. Scott Fitzgerald,Fiction,1928-04-10,A story about the Jazz Age and the American Dream.,9780743273565
+25,Moby Dick,Herman Melville,Romance,1849-10-18,"The quest for vengeance against the white whale, Moby Dick.",9781503280786
+26,War and Peace,Leo Tolstoy,Dystopian,1873-01-01,A historical novel set during the Napoleonic Wars.,9780199232765
+27,The Catcher in the Rye,J.D. Salinger,Romance,1950-07-16,A story of teenage rebellion and angst.,9780316769488
+28,The Hobbit,J.R.R. Tolkien,Dystopian,1941-09-21,The journey of Bilbo Baggins and the quest for treasure.,9780547928227
+29,Fahrenheit 451,Ray Bradbury,Romance,1950-10-19,A future American society where books are outlawed.,9781451673319
+30,The Lord of the Rings,J.R.R. Tolkien,Fiction,1956-07-29,The epic journey to destroy the One Ring.,9780544003415
+31,Harry Potter and the Sorcerer's Stone,J.K. Rowling,Philosophical,1997-06-26,The beginning of Harry Potter's journey into the wizarding world.,9780590353427
+32,The Alchemist,Paulo Coelho,Science Fiction,1987-04-01,A journey of self-discovery and following one's dreams.,9780061122415
+33,Crime and Punishment,Fyodor Dostoevsky,Historical,1869-01-01,"An exploration of morality, guilt, and redemption.",9780143058144
+34,The Odyssey,Homer,Adventure,-700-01-01,The epic journey of Odysseus returning home after the Trojan War.,9780140268867
+35,Anna Karenina,Leo Tolstoy,Adventure,1878-01-01,A tragic story of love and society in 19th-century Russia.,9780140449174
+36,Brave New World,Aldous Huxley,Philosophical,1935-08-01,A dystopian society governed by genetic engineering and conditioning.,9780060850524
+37,The Brothers Karamazov,Fyodor Dostoevsky,Science Fiction,1875-01-01,"A philosophical exploration of faith, doubt, and morality.",9780374528379
+38,The Divine Comedy,Dante Alighieri,Historical,1324-01-01,"An allegorical journey through Hell, Purgatory, and Paradise.",9780140448955
+39,One Hundred Years of Solitude,Gabriel Garcia Marquez,Philosophical,1971-05-30,The story of the Buendía family and the town of Macondo.,9780060883287
+40,The Picture of Dorian Gray,Oscar Wilde,Dystopian,1890-06-20,"A tale of vanity, youth, and corruption.",9780141439570
