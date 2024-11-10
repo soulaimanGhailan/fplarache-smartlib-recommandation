@@ -1,68 +1,48 @@
-name: Deploy on Tag
+name: Build and Push Docker Image
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches:
+      - main  # You can change this to the branch you want to trigger the workflow on
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Build Spring Boot application
-        run: mvn clean package
-        working-directory: fplarache-smartlib-recommendation/recommandation-grpc-service
+      # Step 2: Set up Docker Buildx
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
+      # Step 3: Cache Docker layers (optional)
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      # Step 4: Log in to Docker Hub using token
       - name: Log in to Docker Hub using token
         run: |
-          echo "$DOCKER_TOKEN" | docker login -u ismail039 --password-stdin
-        env:
-          DOCKER_TOKEN: dckr_pat_iqXb_AijlG18dGAz1_dG2ztXw9w
+          echo "dckr_pat_iqXb_AijlG18dGAz1_dG2ztXw9w" | docker login -u ismail039 --password-stdin
 
+      # Step 5: Build Docker image
       - name: Build Docker image
         run: |
-          # Build the Docker image, making sure to specify the path to the Dockerfile
-          docker build -f fplarache-smartlib-recommendation/recommandation-grpc-service/Dockerfile -t ismail039/your-image-name:${GITHUB_REF_NAME} fplarache-smartlib-recommendation/recommandation-grpc-service
+          docker build -t soulaimandockerhub/fplarache-smartlib-recommandation:v1.11 .
 
-          # Tag the image
-          docker tag ismail039/your-image-name:${GITHUB_REF_NAME} ismail039/your-image-name:latest
-
+      # Step 6: Push Docker image to Docker Hub
       - name: Push Docker image to Docker Hub
         run: |
-          docker push ismail039/your-image-name:${GITHUB_REF_NAME}
-          docker push ismail039/your-image-name:latest
+          docker push soulaimandockerhub/fplarache-smartlib-recommandation:v1.11
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v3
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-north-1
-
-      - name: Log in to Amazon ECR
+      # Optional Step: Run Docker container locally (optional)
+      - name: Run Docker container locally (optional)
         run: |
-          aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 774305596814.dkr.ecr.eu-north-1.amazonaws.com
-
-      - name: Tag Docker image for ECR
-        run: |
-          docker tag ismail039/your-image-name:${GITHUB_REF_NAME} 774305596814.dkr.ecr.eu-north-1.amazonaws.com/dev-fpl-larache-smart-lib-service-recommendation-repo:${GITHUB_REF_NAME}
-          docker tag ismail039/your-image-name:latest 774305596814.dkr.ecr.eu-north-1.amazonaws.com/dev-fpl-larache-smart-lib-service-recommendation-repo:latest
-
-      - name: Push Docker image to Amazon ECR
-        run: |
-          docker push 774305596814.dkr.ecr.eu-north-1.amazonaws.com/dev-fpl-larache-smart-lib-service-recommendation-repo:${GITHUB_REF_NAME}
-          docker push 774305596814.dkr.ecr.eu-north-1.amazonaws.com/dev-fpl-larache-smart-lib-service-recommendation-repo:latest
-
-      - name: Set up Kubeconfig
-        run: |
-          echo "${{ secrets.KUBECONFIG_FILE }}" | base64 -d > $HOME/.kube/config
-        env:
-          KUBECONFIG_FILE: ${{ secrets.KUBECONFIG_FILE }}
-
-      - name: Deploy to Kubernetes
-        run: |
-          kubectl apply -f deployment.yaml
+          docker run -d -p 8080:8080 -p 9999:9999 soulaimandockerhub/fplarache-smartlib-recommandation:v1.11
