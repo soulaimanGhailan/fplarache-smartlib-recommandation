@@ -25,11 +25,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          # Change directory to where the Dockerfile is located
-          cd fplarache-smartlib-recommendation/recommandation-grpc-service
-
-          # Build the Docker image from the correct directory
-          docker build -f Dockerfile -t ismail039/your-image-name:${GITHUB_REF_NAME} .
+          # Build the Docker image, making sure to specify the path to the Dockerfile
+          docker build -f fplarache-smartlib-recommendation/recommandation-grpc-service/Dockerfile -t ismail039/your-image-name:${GITHUB_REF_NAME} fplarache-smartlib-recommendation/recommandation-grpc-service
 
           # Tag the image
           docker tag ismail039/your-image-name:${GITHUB_REF_NAME} ismail039/your-image-name:latest
