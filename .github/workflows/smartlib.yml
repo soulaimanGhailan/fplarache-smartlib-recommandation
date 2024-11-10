@@ -23,10 +23,15 @@ jobs:
         env:
           DOCKER_TOKEN: dckr_pat_iqXb_AijlG18dGAz1_dG2ztXw9w
 
-      - name: Build Docker image from inline Dockerfile
+      - name: Create Dockerfile and build Docker image
         run: |
+          # Create a Dockerfile dynamically
           echo -e "FROM openjdk:17\nVOLUME /tmp\nCOPY target/*.jar app.jar\nENTRYPOINT [\"java\",\"-jar\",\"/app.jar\"]" > Dockerfile
+          
+          # Build Docker image
           docker build -t ismail039/your-image-name:${GITHUB_REF_NAME} .
+          
+          # Tag the image
           docker tag ismail039/your-image-name:${GITHUB_REF_NAME} ismail039/your-image-name:latest
 
       - name: Push Docker image to Docker Hub
@@ -64,4 +69,3 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f deployment.yaml
-
