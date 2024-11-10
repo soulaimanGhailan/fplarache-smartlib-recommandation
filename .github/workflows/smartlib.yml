@@ -18,9 +18,7 @@ jobs:
 
       - name: Log in to Docker Hub using token
         run: |
-          echo "$DOCKER_TOKEN" | docker login -u ismail039 --password-stdin
-        env:
-          DOCKER_TOKEN: dckr_pat_iqXb_AijlG18dGAz1_dG2ztXw9w
+          echo "dckr_pat_iqXb_AijlG18dGAz1_dG2ztXw9w" | docker login -u ismail039 --password-stdin
 
       - name: Build Docker image
         run: |
@@ -62,3 +60,4 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f deployment.yaml
+
