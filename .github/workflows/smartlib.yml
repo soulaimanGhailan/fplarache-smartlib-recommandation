@@ -23,9 +23,10 @@ jobs:
         env:
           DOCKER_TOKEN: dckr_pat_iqXb_AijlG18dGAz1_dG2ztXw9w
 
-      - name: Build Docker image
+      - name: Build Docker image from inline Dockerfile
         run: |
-          docker build -t ismail039/your-image-name:${GITHUB_REF_NAME} -f fplarache-smartlib-recommendation/recommandation-grpc-service/src/Dockerfile fplarache-smartlib-recommendation/recommandation-grpc-service
+          echo -e "FROM openjdk:17\nVOLUME /tmp\nCOPY target/*.jar app.jar\nENTRYPOINT [\"java\",\"-jar\",\"/app.jar\"]" > Dockerfile
+          docker build -t ismail039/your-image-name:${GITHUB_REF_NAME} .
           docker tag ismail039/your-image-name:${GITHUB_REF_NAME} ismail039/your-image-name:latest
 
       - name: Push Docker image to Docker Hub
@@ -63,3 +64,4 @@ jobs:
       - name: Deploy to Kubernetes
         run: |
           kubectl apply -f deployment.yaml
+
