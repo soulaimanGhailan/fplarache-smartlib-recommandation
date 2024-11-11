@@ -31,11 +31,13 @@ jobs:
       - name: Log in to Docker Hub using token
         run: |
           echo "dckr_pat_iqXb_AijlG18dGAz1_dG2ztXw9w" | docker login -u ismail039 --password-stdin
+          pwd
 
       # Step 5: Build Docker image
       - name: Build Docker image
         run: |
-         docker build -t soulaimandockerhub/fplarache-smartlib-recommandation:v1.11 -f recommandation-grpc-service/Dockerfile recommandation-grpc-service
+        
+         docker build -t soulaimandockerhub/fplarache-smartlib-recommandation:v1.11 -f recommandation-grpc-service/Dockerfile
 
       # Step 6: Push Docker image to Docker Hub
       - name: Push Docker image to Docker Hub
