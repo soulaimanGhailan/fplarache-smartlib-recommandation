@@ -35,7 +35,7 @@ jobs:
       # Step 5: Build Docker image
       - name: Build Docker image
         run: |
-          docker build -t soulaimandockerhub/fplarache-smartlib-recommandation:v1.11  ./recommandation-grpc-service/
+         docker build -t soulaimandockerhub/fplarache-smartlib-recommandation:v1.11 -f recommandation-grpc-service/Dockerfile recommandation-grpc-service
 
       # Step 6: Push Docker image to Docker Hub
       - name: Push Docker image to Docker Hub
