@@ -5,6 +5,8 @@ module "eks" {
   cluster_name = "fplarache-smartlib-eks"
   cluster_version = "1.31"
 
+  cluster_endpoint_public_access  = true
+
   subnet_ids = module.vpc.private_subnets
   vpc_id = module.vpc.vpc_id
 
