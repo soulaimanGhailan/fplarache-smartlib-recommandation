@@ -21,7 +21,6 @@ spec:
           ports:
             - containerPort: 8080
             - containerPort: 9999
-
           readinessProbe:
             initialDelaySeconds: 15
             httpGet:
