@@ -1,0 +1,32 @@
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - "/c/Nouveau dossier/fplarache-smartlib-recommandation/recommandation-grpc-service/data/prometheus/config/prometheus.yaml:/etc/prometheus/prometheus.yml" # Absolute path for Windows
+    ports:
+      - "9090:9090" # Prometheus UI available at this port
+    networks:
+      - monitoring
+    command:
+      - "--web.listen-address=0.0.0.0:9090"
+
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000" # Grafana UI available at this port
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin # Default admin password
+    volumes:
+      - "/c/Nouveau dossier/fplarache-smartlib-recommandation/recommandation-grpc-service/data/grafana" # Absolute path for Windows
+      - networks:
+          - monitoring
+    depends_on:
+      - prometheus
+
+
+networks:
+  monitoring:
+    driver: bridge

@@ -1,0 +1,8 @@
+global:
+  scrape_interval: 15s # How often to scrape targets by default.
+
+scrape_configs:
+  - job_name: 'mimoun' # A name for your target job
+    metrics_path: '/actuator/prometheus' # The endpoint exposed by Spring Boot
+    static_configs:
+      - targets: ['localhost:8085'] # Reference the container name and port
