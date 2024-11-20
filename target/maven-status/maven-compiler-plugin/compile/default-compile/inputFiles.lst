@@ -1,0 +1,9 @@
+C:\dev\grpc\devops 2 project\recommandation-grpc-service\src\main\java\fpl\smartlib\recommandationgrpcservice\grpc\service\RecommendationServiceImpl.java
+C:\dev\grpc\devops 2 project\recommandation-grpc-service\src\main\java\fpl\smartlib\recommandationgrpcservice\model\Book.java
+C:\dev\grpc\devops 2 project\recommandation-grpc-service\src\main\java\fpl\smartlib\recommandationgrpcservice\RecommandationGrpcServiceApplication.java
+C:\dev\grpc\devops 2 project\recommandation-grpc-service\src\main\java\fpl\smartlib\recommandationgrpcservice\mappers\RecommendationMapperImpl.java
+C:\dev\grpc\devops 2 project\recommandation-grpc-service\src\main\java\fpl\smartlib\recommandationgrpcservice\mappers\RecommendationMapper.java
+C:\dev\grpc\devops 2 project\recommandation-grpc-service\src\main\java\fpl\smartlib\recommandationgrpcservice\grpc\stub\RecommendationServiceGrpc.java
+C:\dev\grpc\devops 2 project\recommandation-grpc-service\src\main\java\fpl\smartlib\recommandationgrpcservice\entities\Recommendation.java
+C:\dev\grpc\devops 2 project\recommandation-grpc-service\src\main\java\fpl\smartlib\recommandationgrpcservice\grpc\stub\Recommandation.java
+C:\dev\grpc\devops 2 project\recommandation-grpc-service\src\main\java\fpl\smartlib\recommandationgrpcservice\repository\RecommendationRepo.java
